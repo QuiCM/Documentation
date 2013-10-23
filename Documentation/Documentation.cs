@@ -135,7 +135,7 @@ namespace Documentation
             Items(args);
             Mobs(args);
 
-            args.Player.SendSuccessMessage("Wrote 3 files, containing items, walls and tiles");
+            args.Player.SendSuccessMessage("Wrote 4 files, containing items, walls, mobs and tiles");
             wroteAll = false;
         }
 
