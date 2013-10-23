@@ -45,7 +45,25 @@ namespace Documentation
             Commands.ChatCommands.Add(new Command("docs.items", Items, "getitems") { AllowServer = true });
             Commands.ChatCommands.Add(new Command("docs.tiles", Tiles, "gettiles") { AllowServer = true });
             Commands.ChatCommands.Add(new Command("docs.walls", Walls, "getwalls") { AllowServer = true });
+            Commands.ChatCommands.Add(new Command("docs.mobs", Mobs, "getmobs") { AllowServer = true });
             Commands.ChatCommands.Add(new Command("docs.*", All, "getall") { AllowServer = true });
+        }
+
+        public void Mobs(CommandArgs args)
+        {
+            var sb = new StringBuilder();
+            for (int i = 0; i < Main.maxNPCTypes; i++)
+            {
+                var mob = TShock.Utils.GetNPCById(i);
+                if (sb.Length == 0)
+                    sb.AppendLine();
+
+                sb.AppendLine(string.Format("Name: {0}  ID: {1}", mob.name, i));
+            }
+            File.WriteAllText(Path.Combine(TShock.SavePath, "Mobs.txt"), "=====Terraria Mobs==== \n" + sb.ToString());
+
+            if (!wroteAll)
+                args.Player.SendSuccessMessage("Wrote all mobs into a text file");
         }
 
         public void Items(CommandArgs args)
@@ -115,6 +133,7 @@ namespace Documentation
             Walls(args);
             Tiles(args);
             Items(args);
+            Mobs(args);
 
             args.Player.SendSuccessMessage("Wrote 3 files, containing items, walls and tiles");
             wroteAll = false;
