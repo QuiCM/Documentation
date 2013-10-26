@@ -16,7 +16,7 @@ namespace Documentation
     [ApiVersion(1, 14)]
     public class Documentation : TerrariaPlugin
     {
-        public override string Author { get { return "WhiteX"; } }
+        public override string Author { get { return "Dat badass out da' hood, WhiteX"; } }
 
         public override string Description { get { return "Creates item documentation for Terraria"; } }
 
