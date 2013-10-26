@@ -146,8 +146,6 @@ namespace Documentation
         	DocumentNPCs(args);
         	DocumentTiles(args);
         	DocumentWalls(args);
-        	
-        	args.Player.SendSuccessMessage("All documentation has been written.");
         }
 
         public Documentation(Main game)
