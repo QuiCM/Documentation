@@ -76,7 +76,7 @@ namespace Documentation
         
         public void DocumentNPCs(CommandArgs args)
         {
-        	IFormatter format = GetFormatter(args.Parameters[0]);
+        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
         	if (format == null)
         	{
         		args.Player.SendErrorMessage("Invalid format provided.");
@@ -89,7 +89,7 @@ namespace Documentation
         
         public void DocumentItems(CommandArgs args)
         {
-        	IFormatter format = GetFormatter(args.Parameters[0]);
+        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
         	if (format == null)
         	{
         		args.Player.SendErrorMessage("Invalid format provided.");
@@ -102,7 +102,7 @@ namespace Documentation
         
         public void DocumentTiles(CommandArgs args)
         {
-        	IFormatter format = GetFormatter(args.Parameters[0]);
+        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
         	if (format == null)
         	{
         		args.Player.SendErrorMessage("Invalid format provided.");
@@ -115,7 +115,7 @@ namespace Documentation
         
         public void DocumentWalls(CommandArgs args)
         {
-        	IFormatter format = GetFormatter(args.Parameters[0]);
+        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
         	if (format == null)
         	{
         		args.Player.SendErrorMessage("Invalid format provided.");
