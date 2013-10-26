@@ -10,6 +10,14 @@ namespace Documentation
 	/// </summary>
 	public interface IFormatter
 	{
+		/// <summary>
+		/// In-game name that this formatter is referred to.
+		/// </summary>
+		string Name {get;}
+		/// <summary>
+		/// File extension to use for this format.
+		/// </summary>
+		string Extension {get;}
 		string FormatWalls();
 		string FormatTiles();
 		string FormatItems();

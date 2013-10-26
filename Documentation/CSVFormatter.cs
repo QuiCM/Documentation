@@ -12,6 +12,9 @@ namespace Documentation
 	/// </summary>
 	public class CSVFormatter : IFormatter
 	{
+		public string Name {get {return "CSV";}}
+		public string Extension {get {return ".csv";}}
+		
 		public string FormatWalls()
 		{
 			StringBuilder sb = new StringBuilder();
