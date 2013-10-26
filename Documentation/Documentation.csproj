@@ -66,6 +66,7 @@
     <Compile Include="CSVFormatter.cs" />
     <Compile Include="Documentation.cs" />
     <Compile Include="IFormatter.cs" />
+    <Compile Include="JSONFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCommandHandler.cs" />
     <Compile Include="Test\TestSubCommandHandler.cs" />
