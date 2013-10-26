@@ -45,21 +45,23 @@ namespace Documentation
 		/// </remarks>
 		public void RunSubcommand(CommandArgs args)
 		{
-			CommandArgs newargs = new CommandArgs(args.Message, args.Player, args.Parameters.GetRange(1, args.Parameters.Count-1));
+			
 			if (args.Parameters.Count > 0)
 			{
+				CommandArgs newargs = new CommandArgs(args.Message, args.Player, args.Parameters.GetRange(1, args.Parameters.Count-1));
 				try
 				{
 					subCommands[args.Parameters[0]].Invoke(newargs);
 				}
-				catch
+				catch (Exception e)
 				{
-					args.Player.SendErrorMessage("The command has failed.");
+					args.Player.SendErrorMessage("The command has failed, check logs for info.");
+					Log.Error(e.ToString());
 					subCommands["help"].Invoke(newargs);
 				}
 			}
 			else
-				subCommands["help"].Invoke(newargs);
+				subCommands["help"].Invoke(args);
 		}
 	}
 }

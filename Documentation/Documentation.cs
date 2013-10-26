@@ -54,7 +54,7 @@ namespace Documentation
         	handler.RegisterSubcommand("commands", DocumentCommands);
         	handler.RegisterSubcommand("all", DocumentAll);
         	
-        	handler.HelpText = "Available sub-commands: mobs, items, tiles, walls, commands\nAvailable formats: csv";
+        	handler.HelpText = "Syntax: /docgen [sub-command] [format]\nAvailable sub-commands: mobs, items, tiles, walls, commands\nAvailable formats: csv";
         }
         
         private IFormatter GetFormatter(string name)
@@ -128,7 +128,7 @@ namespace Documentation
         
         public void DocumentCommands(CommandArgs args)
         {
-        	IFormatter format = GetFormatter(args.Parameters[0]);
+        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
         	if (format == null)
         	{
         		args.Player.SendErrorMessage("Invalid format provided.");

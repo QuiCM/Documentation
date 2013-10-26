@@ -101,7 +101,7 @@ namespace Documentation
 			
 			foreach (Command com in Commands.ChatCommands)
 			{
-				sb.AppendFormat("{0},{1},{2},{3}\n",com.Name, com.Permissions.First(),com.HelpText,com.AllowServer);
+				sb.AppendFormat("{0},{1},{2},{3}\n",com.Name, com.Permissions.Count > 0 ? com.Permissions.First() : "",com.HelpText,com.AllowServer);
 			}
 			
 			return sb.ToString();
