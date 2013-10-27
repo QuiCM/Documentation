@@ -44,6 +44,7 @@ namespace Documentation
         public void OnInitialize(EventArgs args)
         {
         	Formats.Add(new CSVFormatter());
+        	Formats.Add(new JSONFormatter());
         	
         	Commands.ChatCommands.Add(new Command("documentation", Document, "docgen") {AllowServer = true, HelpText = "Master command for the Documentation plugin."});
         	
@@ -54,7 +55,7 @@ namespace Documentation
         	handler.RegisterSubcommand("commands", DocumentCommands);
         	handler.RegisterSubcommand("all", DocumentAll);
         	
-        	handler.HelpText = "Syntax: /docgen [sub-command] [format]\nAvailable sub-commands: mobs, items, tiles, walls, commands\nAvailable formats: csv";
+        	handler.HelpText = "Syntax: /docgen [sub-command] [format]\nAvailable sub-commands: mobs, items, tiles, walls, commands\nAvailable formats: csv, json";
         }
         
         private IFormatter GetFormatter(string name)
