@@ -106,5 +106,29 @@ namespace Documentation
 			
 			return sb.ToString();
 		}
+
+        public string FormatProjectiles()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Name,Type,AI,Friendly,Penetrating,NotItemDropping,Minion,NumberOfHits,Magic,Range,Melee,Damage");
+
+            List<Projectile> projectiles = new List<Projectile>();
+            Projectile projectile = new Projectile();
+
+            for (int i  =0; i < Main.maxProjectileTypes; i++)
+            {
+                projectile.SetDefaults(i);
+                projectiles.Add(projectile);
+            }
+
+            foreach (Projectile proj in projectiles)
+            {
+                sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}, {11}\n",
+                    proj.name, proj.type, proj.aiStyle, proj.friendly, proj.penetrate,
+                    proj.noDropItem, proj.minion, proj.numHits, proj.magic, proj.ranged,
+                    proj.melee, proj.damage);
+            }
+            return sb.ToString();
+        }
 	}
 }

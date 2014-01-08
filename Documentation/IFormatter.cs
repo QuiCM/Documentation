@@ -23,5 +23,6 @@ namespace Documentation
 		string FormatItems();
 		string FormatMobs();
 		string FormatCommands();
+        string FormatProjectiles();
 	}
 }

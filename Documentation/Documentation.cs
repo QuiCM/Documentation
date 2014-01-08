@@ -18,7 +18,7 @@ namespace Documentation
     {
         public override string Author { get { return "Dat badass out da' hood, WhiteX"; } }
 
-        public override string Description { get { return "Creates item documentation for Terraria"; } }
+        public override string Description { get { return "Creates documentation for Terraria things"; } }
 
         public override string Name { get { return "Documentation"; } }
 
@@ -53,9 +53,10 @@ namespace Documentation
         	handler.RegisterSubcommand("tiles", DocumentTiles);
         	handler.RegisterSubcommand("walls", DocumentWalls);
         	handler.RegisterSubcommand("commands", DocumentCommands);
+            handler.RegisterSubcommand("projectiles", DocumentProjectiles);
         	handler.RegisterSubcommand("all", DocumentAll);
         	
-        	handler.HelpText = "Syntax: /docgen [sub-command] [format]\nAvailable sub-commands: mobs, items, tiles, walls, commands\nAvailable formats: csv, json";
+        	handler.HelpText = "Syntax: /docgen [sub-command] [format]\nAvailable sub-commands: mobs, items, tiles, walls, commands, projectiles\nAvailable formats: csv, json";
         }
         
         private IFormatter GetFormatter(string name)
@@ -139,6 +140,19 @@ namespace Documentation
         	
         	args.Player.SendSuccessMessage("Command documentation has been written.");
         }
+
+        public void DocumentProjectiles(CommandArgs args)
+        {
+            IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            if (format == null)
+            {
+                args.Player.SendErrorMessage("Invalid format provided.");
+                return;
+            }
+            File.WriteAllText(Path.Combine(TShock.SavePath, "projectiles"+format.Extension), format.FormatProjectiles());
+
+            args.Player.SendSuccessMessage("Projectile documentation has been written.");
+        }
         
         public void DocumentAll(CommandArgs args)
         {
@@ -147,6 +161,7 @@ namespace Documentation
         	DocumentNPCs(args);
         	DocumentTiles(args);
         	DocumentWalls(args);
+            DocumentProjectiles(args);
         }
 
         public Documentation(Main game)
