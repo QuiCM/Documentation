@@ -83,13 +83,13 @@ namespace Documentation
 			
 			foreach (Item item in items)
 			{
-				sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}\n", 
+				sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}\n", 
 				                 item.name, item.type, item.accessory,
 	                			 item.headSlot, item.bodySlot, item.legSlot, 
 	                			 item.melee, item.magic, item.ranged, 
 	                			 item.mana, item.manaIncrease, item.lifeRegen, 
 	                			 item.potion, item.damage, item.defense, 
-	                			 item.toolTip, item.toolTip2);
+	                			 item.toolTip, item.toolTip2, item.value);
 			}
 			
 			return sb.ToString();
@@ -115,7 +115,7 @@ namespace Documentation
             List<Projectile> projectiles = new List<Projectile>();
             Projectile projectile = new Projectile();
 
-            for (int i  =0; i < Main.maxProjectileTypes; i++)
+            for (int i = 0; i < Main.maxProjectileTypes; i++)
             {
                 projectile.SetDefaults(i);
                 projectiles.Add(projectile);
