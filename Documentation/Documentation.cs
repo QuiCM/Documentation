@@ -13,7 +13,7 @@ using TShockAPI;
 
 namespace Documentation
 {
-    [ApiVersion(1, 14)]
+    [ApiVersion(1, 15)]
     public class Documentation : TerrariaPlugin
     {
         public override string Author { get { return "Dat badass out da' hood, WhiteX"; } }
