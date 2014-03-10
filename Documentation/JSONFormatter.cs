@@ -23,7 +23,7 @@ namespace Documentation
 		public string FormatMobs()
 		{
 			List<NPC> mobs = new List<NPC>();
-			for (int i = 0; i < Main.maxItemTypes; i++) 
+			for (int i = 0; i < Main.maxNPCTypes; i++) 
 			{
 				mobs.Add(TShock.Utils.GetNPCById(i));
 			}	

@@ -58,7 +58,7 @@ namespace Documentation
 		{
 			StringBuilder sb = new StringBuilder();
 			List<NPC> mobs = new List<NPC>();
-			for (int i = 0; i < Main.maxItemTypes; i++) 
+			for (int i = 0; i < Main.maxNPCTypes; i++) 
 			{
 				mobs.Add(TShock.Utils.GetNPCById(i));
 			}			
@@ -113,12 +113,12 @@ namespace Documentation
             sb.AppendLine("Name,Type,AI,Friendly,Penetrating,NotItemDropping,Minion,NumberOfHits,Magic,Range,Melee,Damage");
 
             List<Projectile> projectiles = new List<Projectile>();
-            Projectile projectile = new Projectile();
 
             for (int i = 0; i < Main.maxProjectileTypes; i++)
             {
-                projectile.SetDefaults(i);
-                projectiles.Add(projectile);
+                Projectile proj = new Projectile();
+                proj.SetDefaults(i);
+                projectiles.Add(proj);
             }
 
             foreach (Projectile proj in projectiles)
