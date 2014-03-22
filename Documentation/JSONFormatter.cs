@@ -33,7 +33,7 @@ namespace Documentation
 		public string FormatItems()
 		{
 			List<Item> items = new List<Item>();
-			for (int i = 0; i < Main.maxItemTypes; i++) 
+			for (int i = -48; i < Main.maxItemTypes; i++) 
 			{
 				items.Add(TShock.Utils.GetItemById(i));
 			}
