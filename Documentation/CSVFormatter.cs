@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Terraria;
 using TShockAPI;
-using System.Reflection;
-using System.Collections;
 
 namespace Documentation
 {
@@ -16,12 +13,37 @@ namespace Documentation
 	{
 		public string Name {get {return "CSV";}}
 		public string Extension {get {return ".csv";}}
-		
+
+	    public string FormatItemsSimple()
+	    {
+	        return FormatItems();
+	    }
+
+	    public string FormatWallsSimple()
+	    {
+	        return FormatWalls();
+	    }
+
+	    public string FormatTilesSimple()
+	    {
+	        return FormatTiles();
+	    }
+
+	    public string FormatMobsSimple()
+	    {
+	        return FormatMobs();
+	    }
+
+	    public string FormatProjectilesSimple()
+	    {
+	        return FormatProjectiles();
+	    }
+
 		public string FormatWalls()
 		{
-			StringBuilder sb = new StringBuilder();
-			List<Item> walls = new List<Item>();
-			for (int i = 0; i < Main.maxItemTypes; i++) 
+			var sb = new StringBuilder();
+			var walls = new List<Item>();
+			for (var i = 0; i < Main.maxItemTypes; i++) 
 			{
 				walls.Add(TShock.Utils.GetItemById(i));
 			}
@@ -29,7 +51,7 @@ namespace Documentation
 
             sb.AppendLine("\"Name\",\"Type\"");
 			
-			foreach (Item wall in walls)
+			foreach (var wall in walls)
 			{
                 sb.AppendFormat("\"{0}\",\"{1}\"\n", wall.name, wall.createWall);
 			}
@@ -38,9 +60,9 @@ namespace Documentation
 		}
 		public string FormatTiles()
 		{
-			StringBuilder sb = new StringBuilder();
-			List<Item> tiles = new List<Item>();
-			for (int i = 0; i < Main.maxItemTypes; i++) 
+			var sb = new StringBuilder();
+			var tiles = new List<Item>();
+			for (var i = 0; i < Main.maxItemTypes; i++) 
 			{
 				tiles.Add(TShock.Utils.GetItemById(i));
 			}
@@ -48,7 +70,7 @@ namespace Documentation
 
             sb.AppendLine("\"Name\",\"Type\"");
 			
-			foreach (Item tile in tiles)
+			foreach (var tile in tiles)
 			{
                 sb.AppendFormat("\"{0}\",\"{1}\"\n", tile.name, tile.createTile);
 			}
@@ -58,15 +80,15 @@ namespace Documentation
 		
 		public string FormatMobs()
 		{
-			StringBuilder sb = new StringBuilder();
-			List<NPC> mobs = new List<NPC>();
-			for (int i = 0; i < Main.maxNPCTypes; i++) 
+			var sb = new StringBuilder();
+			var mobs = new List<NPC>();
+			for (var i = 0; i < Main.maxNPCTypes; i++) 
 			{
 				mobs.Add(TShock.Utils.GetNPCById(i));
 			}
             sb.AppendLine("\"Name\",\"Type\",\"LifeMax\",\"LifeRegen\",\"Defense\",\"Damage\",\"TownNPC\"");
 			
-			foreach (NPC mob in mobs)
+			foreach (var mob in mobs)
 			{
                 sb.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"\n", mob.displayName, mob.type, mob.lifeMax, mob.lifeRegen, mob.defense, mob.damage, mob.townNPC);
 			}
@@ -76,22 +98,22 @@ namespace Documentation
 
 		public string FormatItems()
 		{
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             //headers are first line
-            foreach (FieldInfo fi in typeof(Item).GetFields())
+            foreach (var fi in typeof(Item).GetFields())
             {
                 sb.AppendFormat("\"{0}\",", fi.Name);
             }
 
             sb.Append("\r\n");
 
-            for (int i = -48; i < Main.maxItemTypes; i++)
+            for (var i = -48; i < Main.maxItemTypes; i++)
             {
-                Terraria.Item item = TShock.Utils.GetItemById(i);
-                foreach (FieldInfo fi in typeof(Item).GetFields())
+                var item = TShock.Utils.GetItemById(i);
+                foreach (var fi in typeof(Item).GetFields())
                 {
-                    sb.AppendFormat("\"{0}\",", fi.GetValue(item).ToString());
+                    sb.AppendFormat("\"{0}\",", fi.GetValue(item));
                 }
 
                 sb.Append("\r\n");
@@ -102,10 +124,10 @@ namespace Documentation
 		
 		public string FormatCommands()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
             sb.AppendLine("\"Name\",\"Permission\",\"HelpText\",\"AllowServer\"");
 			
-			foreach (Command com in Commands.ChatCommands)
+			foreach (var com in Commands.ChatCommands)
 			{
                 sb.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\"\n", com.Name, com.Permissions.Count > 0 ? com.Permissions.First() : "", com.HelpText, com.AllowServer);
 			}
@@ -115,19 +137,19 @@ namespace Documentation
 
         public string FormatProjectiles()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendLine("\"Name\",\"Type\",\"AI\",\"Friendly\",\"Penetrating\",\"NotItemDropping\",\"Minion\",\"NumberOfHits\",\"Magic\",\"Range\",\"Melee\",\"Damage\"");
 
-            List<Projectile> projectiles = new List<Projectile>();
+            var projectiles = new List<Projectile>();
 
             for (int i = 0; i < Main.maxProjectileTypes; i++)
             {
-                Projectile proj = new Projectile();
+                var proj = new Projectile();
                 proj.SetDefaults(i);
                 projectiles.Add(proj);
             }
 
-            foreach (Projectile proj in projectiles)
+            foreach (var proj in projectiles)
             {
                 sb.AppendFormat("\"{0}\"\",{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\"\n",
                     proj.name, proj.type, proj.aiStyle, proj.friendly, proj.penetrate,

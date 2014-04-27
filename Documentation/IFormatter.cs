@@ -19,10 +19,15 @@ namespace Documentation
 		/// </summary>
 		string Extension {get;}
 		string FormatWalls();
-		string FormatTiles();
-		string FormatItems();
-		string FormatMobs();
+	    string FormatWallsSimple();
+        string FormatTiles();
+        string FormatTilesSimple();
+        string FormatItems();
+        string FormatItemsSimple();
+        string FormatMobs();
+        string FormatMobsSimple();
 		string FormatCommands();
         string FormatProjectiles();
+        string FormatProjectilesSimple();
 	}
 }

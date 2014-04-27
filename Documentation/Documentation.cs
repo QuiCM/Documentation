@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using Terraria;
-using TerrariaApi;
 using TerrariaApi.Server;
 
 using TShockAPI;
@@ -56,14 +53,14 @@ namespace Documentation
             handler.RegisterSubcommand("projectiles", DocumentProjectiles);
         	handler.RegisterSubcommand("all", DocumentAll);
         	
-        	handler.HelpText = "Syntax: /docgen [sub-command] [format]\nAvailable sub-commands: mobs, items, tiles, walls, commands, projectiles\nAvailable formats: csv, json";
+        	handler.HelpText = "Syntax: /docgen [sub-command] [format]\nAvailable sub-commands: mobs, items, tiles, walls, commands, projectiles\nAvailable formats: csv, json\nAppend format with ' -simple' for simple output (json only)";
         }
         
         private IFormatter GetFormatter(string name)
         {
         	try
         	{
-        		return Formats.Where(x => x.Name.ToLower() == name.ToLower()).First();
+        		return Formats.First(x => String.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
         	}
         	catch
         	{
@@ -71,69 +68,81 @@ namespace Documentation
         	}
         }
 
-        public void Document(CommandArgs args)
+        private void Document(CommandArgs args)
         {        	
         	handler.RunSubcommand(args);
         }
-        
-        public void DocumentNPCs(CommandArgs args)
+
+        private void DocumentNPCs(CommandArgs args)
         {
-        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+        	var format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var simple = args.Parameters.Count > 1 && args.Parameters[1].ToLower() == "-simple";
         	if (format == null)
         	{
         		args.Player.SendErrorMessage("Invalid format provided.");
+        	    args.Player.SendWarningMessage("If using simple formatting: /docgen mobs json -simple");
         		return;
         	}
-        	File.WriteAllText(Path.Combine(TShock.SavePath, "mobs"+format.Extension), format.FormatMobs());
+            File.WriteAllText(Path.Combine(TShock.SavePath, "mobs" + format.Extension), 
+                simple ? format.FormatMobsSimple() : format.FormatMobs());
         	
         	args.Player.SendSuccessMessage("Mob documentation has been written.");
         }
-        
-        public void DocumentItems(CommandArgs args)
+
+        private void DocumentItems(CommandArgs args)
         {
-        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var simple = args.Parameters.Count > 1 && args.Parameters[1].ToLower() == "-simple";
         	if (format == null)
         	{
         		args.Player.SendErrorMessage("Invalid format provided.");
+                args.Player.SendWarningMessage("If using simple formatting: /docgen items json -simple");
         		return;
         	}
-        	File.WriteAllText(Path.Combine(TShock.SavePath, "items"+format.Extension), format.FormatItems());
+        	File.WriteAllText(Path.Combine(TShock.SavePath, "items"+format.Extension),
+                simple ? format.FormatItemsSimple() : format.FormatItems());
         	
         	args.Player.SendSuccessMessage("Item documentation has been written.");
         }
         
-        public void DocumentTiles(CommandArgs args)
+        private void DocumentTiles(CommandArgs args)
         {
-        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var simple = args.Parameters.Count > 1 && args.Parameters[1].ToLower() == "-simple";
         	if (format == null)
         	{
-        		args.Player.SendErrorMessage("Invalid format provided.");
+                args.Player.SendErrorMessage("Invalid format provided.");
+                args.Player.SendWarningMessage("If using simple formatting: /docgen tiles json -simple");
         		return;
         	}
-        	File.WriteAllText(Path.Combine(TShock.SavePath, "tiles"+format.Extension), format.FormatTiles());
+        	File.WriteAllText(Path.Combine(TShock.SavePath, "tiles"+format.Extension), 
+                simple ? format.FormatTilesSimple() : format.FormatTiles());
         	
         	args.Player.SendSuccessMessage("Tile documentation has been written.");
         }
         
-        public void DocumentWalls(CommandArgs args)
+        private void DocumentWalls(CommandArgs args)
         {
-        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var simple = args.Parameters.Count > 1 && args.Parameters[1].ToLower() == "-simple";
         	if (format == null)
         	{
-        		args.Player.SendErrorMessage("Invalid format provided.");
+                args.Player.SendErrorMessage("Invalid format provided.");
+                args.Player.SendWarningMessage("If using simple formatting: /docgen walls json -simple");
         		return;
         	}
-        	File.WriteAllText(Path.Combine(TShock.SavePath, "walls"+format.Extension), format.FormatWalls());
+            File.WriteAllText(Path.Combine(TShock.SavePath, "walls" + format.Extension),
+                simple ? format.FormatWallsSimple() : format.FormatWalls());
         	
         	args.Player.SendSuccessMessage("Wall documentation has been written.");
         }
         
-        public void DocumentCommands(CommandArgs args)
+        private void DocumentCommands(CommandArgs args)
         {
-        	IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
         	if (format == null)
         	{
-        		args.Player.SendErrorMessage("Invalid format provided.");
+                args.Player.SendErrorMessage("Invalid format provided.");
         		return;
         	}
         	File.WriteAllText(Path.Combine(TShock.SavePath, "commands"+format.Extension), format.FormatCommands());
@@ -141,20 +150,23 @@ namespace Documentation
         	args.Player.SendSuccessMessage("Command documentation has been written.");
         }
 
-        public void DocumentProjectiles(CommandArgs args)
+        private void DocumentProjectiles(CommandArgs args)
         {
-            IFormatter format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var format = args.Parameters.Count > 0 ? GetFormatter(args.Parameters[0]) : null;
+            var simple = args.Parameters.Count > 1 && args.Parameters[1].ToLower() == "-simple";
             if (format == null)
             {
                 args.Player.SendErrorMessage("Invalid format provided.");
+                args.Player.SendWarningMessage("If using simple formatting: /docgen projectiles json -simple");
                 return;
             }
-            File.WriteAllText(Path.Combine(TShock.SavePath, "projectiles"+format.Extension), format.FormatProjectiles());
+            File.WriteAllText(Path.Combine(TShock.SavePath, "projectiles"+format.Extension), 
+                simple ? format.FormatProjectilesSimple() : format.FormatProjectiles());
 
             args.Player.SendSuccessMessage("Projectile documentation has been written.");
         }
         
-        public void DocumentAll(CommandArgs args)
+        private void DocumentAll(CommandArgs args)
         {
         	DocumentCommands(args);
         	DocumentItems(args);
