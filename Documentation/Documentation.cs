@@ -40,6 +40,11 @@ namespace Documentation
 
         public void OnInitialize(EventArgs args)
         {
+	        if (!Directory.Exists(Path.Combine(TShock.SavePath, "DocGen")))
+	        {
+		        Directory.CreateDirectory(Path.Combine(TShock.SavePath, "DocGen"));
+	        }
+
         	Formats.Add(new CSVFormatter());
         	Formats.Add(new JSONFormatter());
         	
@@ -83,7 +88,7 @@ namespace Documentation
         	    args.Player.SendWarningMessage("If using simple formatting: /docgen mobs json -simple");
         		return;
         	}
-            File.WriteAllText(Path.Combine(TShock.SavePath, "mobs" + format.Extension), 
+            File.WriteAllText(Path.Combine(TShock.SavePath, "DocGen/mobs" + format.Extension), 
                 simple ? format.FormatMobsSimple() : format.FormatMobs());
         	
         	args.Player.SendSuccessMessage("Mob documentation has been written.");
@@ -99,7 +104,7 @@ namespace Documentation
                 args.Player.SendWarningMessage("If using simple formatting: /docgen items json -simple");
         		return;
         	}
-        	File.WriteAllText(Path.Combine(TShock.SavePath, "items"+format.Extension),
+        	File.WriteAllText(Path.Combine(TShock.SavePath, "DocGen/items"+format.Extension),
                 simple ? format.FormatItemsSimple() : format.FormatItems());
         	
         	args.Player.SendSuccessMessage("Item documentation has been written.");
@@ -115,7 +120,7 @@ namespace Documentation
                 args.Player.SendWarningMessage("If using simple formatting: /docgen tiles json -simple");
         		return;
         	}
-        	File.WriteAllText(Path.Combine(TShock.SavePath, "tiles"+format.Extension), 
+        	File.WriteAllText(Path.Combine(TShock.SavePath, "DocGen/tiles"+format.Extension), 
                 simple ? format.FormatTilesSimple() : format.FormatTiles());
         	
         	args.Player.SendSuccessMessage("Tile documentation has been written.");
@@ -131,7 +136,7 @@ namespace Documentation
                 args.Player.SendWarningMessage("If using simple formatting: /docgen walls json -simple");
         		return;
         	}
-            File.WriteAllText(Path.Combine(TShock.SavePath, "walls" + format.Extension),
+            File.WriteAllText(Path.Combine(TShock.SavePath, "DocGen/walls" + format.Extension),
                 simple ? format.FormatWallsSimple() : format.FormatWalls());
         	
         	args.Player.SendSuccessMessage("Wall documentation has been written.");
@@ -145,7 +150,7 @@ namespace Documentation
                 args.Player.SendErrorMessage("Invalid format provided.");
         		return;
         	}
-        	File.WriteAllText(Path.Combine(TShock.SavePath, "commands"+format.Extension), format.FormatCommands());
+        	File.WriteAllText(Path.Combine(TShock.SavePath, "DocGen/commands"+format.Extension), format.FormatCommands());
         	
         	args.Player.SendSuccessMessage("Command documentation has been written.");
         }
@@ -160,7 +165,7 @@ namespace Documentation
                 args.Player.SendWarningMessage("If using simple formatting: /docgen projectiles json -simple");
                 return;
             }
-            File.WriteAllText(Path.Combine(TShock.SavePath, "projectiles"+format.Extension), 
+            File.WriteAllText(Path.Combine(TShock.SavePath, "DocGen/projectiles"+format.Extension), 
                 simple ? format.FormatProjectilesSimple() : format.FormatProjectiles());
 
             args.Player.SendSuccessMessage("Projectile documentation has been written.");
