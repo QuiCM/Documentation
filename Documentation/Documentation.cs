@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-
+using System.Reflection;
 using Terraria;
 using TerrariaApi.Server;
 
@@ -19,7 +19,7 @@ namespace Documentation
 
         public override string Name { get { return "Documentation"; } }
 
-        public override Version Version { get { return new Version(1, 0, 0); } }
+        public override Version Version { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
         
         public List<IFormatter> Formats = new List<IFormatter>();
         private SubCommandHandler handler = new SubCommandHandler();
