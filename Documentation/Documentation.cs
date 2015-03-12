@@ -43,7 +43,7 @@ namespace Documentation
         	Formats.Add(new CSVFormatter());
         	Formats.Add(new JSONFormatter());
         	
-        	Commands.ChatCommands.Add(new Command("documentation", Document, "docgen") {AllowServer = true, HelpText = "Master command for the Documentation plugin."});
+        	Commands.ChatCommands.Add(new Command("docs.docgen", Document, "docgen") {AllowServer = true, HelpText = "Master command for the Documentation plugin."});
         	
         	handler.RegisterSubcommand("mobs", DocumentNPCs);
         	handler.RegisterSubcommand("items", DocumentItems);
