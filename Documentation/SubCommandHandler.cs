@@ -56,7 +56,7 @@ namespace Documentation
 				catch (Exception e)
 				{
 					args.Player.SendErrorMessage("The command has failed, check logs for info.");
-					Log.Error(e.ToString());
+					TShock.Log.Error(e.ToString());
 					subCommands["help"].Invoke(newargs);
 				}
 			}
