@@ -10,7 +10,7 @@ using TShockAPI;
 
 namespace Documentation
 {
-    [ApiVersion(1, 17)]
+    [ApiVersion(1, 20)]
     public class Documentation : TerrariaPlugin
     {
         public override string Author { get { return "White, Ijwu"; } }
